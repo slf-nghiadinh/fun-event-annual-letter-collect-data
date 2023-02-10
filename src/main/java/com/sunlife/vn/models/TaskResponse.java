@@ -1,4 +1,4 @@
-package vn.slf.models;
+package com.sunlife.vn.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

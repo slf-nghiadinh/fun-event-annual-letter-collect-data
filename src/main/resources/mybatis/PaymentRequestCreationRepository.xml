@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunlife.vn.repository.ing.PaymentRequestCreationRepository">
+    <select id="queryCaseId" resultType="com.sunlife.vn.models.CollectLetterModel">
+        select PRT_IMSG_INFO  as data,
+         'CCWL4927' as cobolType
+         ,'ANNUAL_LETTER' as evtTyp
+         , CO_ID as coId
+         , POL_ID as polId
+         , DOC_ID as docId
+         , TRNXT_PRCES_DT as batchDate
+         , TRNXT_SEQ_NUM as seqNum
+        from TZPMS
+        where  1=1
+          and CO_ID='CP'
+          and TRNXT_SEQ_NUM='001'
+          and TRNXT_PRT_STAT_CD=1
+          and DOC_ID='BF1400ANNUAL'
+    </select>
+
+    <update id="UPDATE_TZPMS_FLAG">
+        UPDATE TZPMS SET TRNXT_PRT_STAT_CD = '0'
+             WHERE CO_ID = #{coId} and  POL_ID  = #{polId}  and DOC_ID = #{docId} and TRNXT_PRCES_DT = #{tpDt} and TRNXT_SEQ_NUM = #{tsNum} and TRNXT_PRT_STAT_CD = '1'
+    </update>
+
+    <update id="UPDATE_TZPMS_FLAG_FAILED">
+        UPDATE TZPMS SET TRNXT_PRT_STAT_CD = '0'
+        WHERE CO_ID = #{coId} and  POL_ID  = #{polId} and TRNXT_PRCES_DT = #{tpDt} and TRNXT_SEQ_NUM = #{tsNum}
+    </update>
+</mapper>
